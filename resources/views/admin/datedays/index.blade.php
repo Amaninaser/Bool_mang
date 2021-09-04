@@ -2,10 +2,10 @@
   <x-alert />
 
   <div class="row">
-<!-- 
+
 <div class="col-md-4" style="padding:10px;">
   <a href="{{ route('admin.trainers.create') }}" class="btn btn-info">إضافة مدرب</a>
-</div> -->
+</div>
 <div class="col-md-4" style="padding:20px;">
   <a href="{{ route('admin.datedays.create') }}" class="btn btn-info">Add Available Date</a>
 </div>
