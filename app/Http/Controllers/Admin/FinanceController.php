@@ -54,7 +54,7 @@ class FinanceController extends Controller
         return redirect()->route('admin.finances.index')
         ->with(
             'success',
-            "Finance was created Sccessufly",
+            "تم إضافة المالية للمتدرب بنجاح",
         );
     }
 
@@ -77,7 +77,15 @@ class FinanceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $finance= Finance::findOrFail($id);
+        $trainees = Trainee::all();
+
+        if ($finance == null) {
+            abort(404);
+        }
+
+        return view('admin.finances.edit', compact('finance','trainees'));
+   
     }
 
     /**
@@ -89,7 +97,20 @@ class FinanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $finance = Finance::findOrFail($id);
+        if ($finance == null) {
+            abort(404);
+        }
+
+       // $request->validate(Trainee::validateRoles());
+        $data = $request->all();
+        $finance->update($data);
+
+        return redirect()->route('admin.finances.index')
+            ->with(
+                'success',
+                "تم تعديل المالية للمدرب بنجاح ",
+            );
     }
 
     /**
@@ -100,6 +121,12 @@ class FinanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $finance = Finance::findOrFail($id);
+   
+        $finance->delete();
+ 
+         return redirect()->route('admin.finances.index')
+             ->with('success', "تم حذف المالية للمدرب بنجاح");
+     
     }
 }

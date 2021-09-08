@@ -71,7 +71,7 @@ class TrainerController extends Controller
         return redirect()->route('admin.trainers.index')
         ->with(
             'success',
-            "Trainer was created with name: " . $request->firstname . " " . $request->lastname,
+            "تم إضافة المدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
         );
     }
 
@@ -124,7 +124,7 @@ class TrainerController extends Controller
         return redirect()->route('admin.trainers.index')
             ->with(
                 'success',
-                "Trainer ($trainer->fullname) Updated Sccessufly!"
+                "تم تعديل المدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
             );
     }
 

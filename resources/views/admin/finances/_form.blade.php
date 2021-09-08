@@ -5,7 +5,7 @@
     <select name="trainee_id" class="form-control @error('trainee_id') is-invalid @enderror">
         <option value="">Select Name</option>
         @foreach ($trainees as $trainee)
-        <option value="{{ $trainee->id }}" @if($trainee->id == old('trainee_id', $trainee->trainee_id) ) selected @endif >{{ $trainee->firstname }} {{ $trainee->lastname }}</option>
+        <option value="{{ $trainee->id }}" @if($trainee->id == old('trainee_id', $finance->trainee_id) ) selected @endif >{{ $trainee->firstname }} {{ $trainee->lastname }}</option>
         @endforeach
     </select>
     @error('trainee_id')

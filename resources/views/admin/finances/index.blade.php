@@ -4,6 +4,23 @@
   <div style="padding:15px;">
     <a href="{{ route('admin.finances.create') }}" class="btn btn-info">إضافة المالية</a>
   </div>
+
+  <form action="{{ route('admin.attendance.index') }}" method="get" class="d-flex probootstrap-section">
+    <div class="row">
+      <div class="col-md-4">
+        <input type="text" class="form-control" name="firstname" placeholder="بحث حسب إسم المتدرب">
+      </div>
+      <div class="col-md-4">
+        <input type="text" class="form-control" name="lastname" placeholder="بحث حسب إسم المدرب">
+      </div>
+ <div class="col-md-2" style="padding-bottom:15px;">
+      <button type="submit" class="btn" style="background:#903479; color: #fff;">أبحث</button>
+
+    </div>
+    </div>
+   
+
+  </form>
   
   <table class="table">
     <thead>
@@ -59,8 +76,13 @@
           <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.finances.edit', $finance->id ) }}">تعديل </a>
         </td>
         <td>
-          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.finances.destroy', $finance->id ) }}">حذف</a>
-        </td>
+                   <form action="{{route('admin.finances.destroy', $finance->id ) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-sm btn-primary">حذف</button>
+                    </form>
+          </td>
+     
       </tr>
       @endforeach
     </tbody>

@@ -15,7 +15,7 @@ class AddFkToTraineesTable extends Migration
     {
         Schema::table('trainees', function (Blueprint $table) {
             $table->foreignId('trainer_id')->nullable()->constrained('trainers','id')
-            ->nullOnDelete();
+            ->cascadeOnDelete();
 
         });
     }

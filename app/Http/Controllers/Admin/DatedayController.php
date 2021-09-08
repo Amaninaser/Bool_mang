@@ -20,13 +20,11 @@ class DatedayController extends Controller
     public function index(Request $request)
     {
         $datedays= Dateday::when($request->date_from, function ($query, $value) {
-            $query->where(function ($query) use ($value) {
-                $query->where('date_from', '>=', "$value")
-                    ->orWhere('start_time', '>=', "$value")
-                    ->orWhere('end_time', '<=', "$value");
-
-            });
+                $query->whereDate('date_from', '<=', "$value")
+                ->whereTime('start_time', '<=', "$value")
+                    ->whereTime('end_time', '>=', "$value");
         })
+          
             ->latest('date_from')
             ->paginate(3);
 
@@ -34,8 +32,6 @@ class DatedayController extends Controller
             'datedays' => $datedays,
             'daysnames' => DaysName::all(),
             'trainers' => Trainer::all(),
-
-
         ]);
     }
 
@@ -91,7 +87,7 @@ class DatedayController extends Controller
         return redirect()->route('admin.datedays.index')
         ->with(
             'success',
-            "Date_Day added Sccessufly!"
+            "تم إضافة موعد للمدرب بنجاح!"
         );
     }
 
@@ -116,13 +112,15 @@ class DatedayController extends Controller
     {
         $dateday= Dateday::findOrFail($id);
         $trainers = Trainer::all();
+        $daysnames = DaysName::all();
+
 
         if ($dateday == null) {
             abort(404);
         }
 
         return view('admin.datedays.edit', 
-        compact('dateday','trainers'));
+        compact('dateday','trainers','daysnames'));
    
     }
 

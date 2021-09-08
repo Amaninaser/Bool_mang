@@ -5,7 +5,7 @@
             @csrf
             @method('put')
             @include('admin.trainers._form',[
-            'button_lable' => 'Update'
+            'button_lable' => 'تعديل'
             ])
     </form>
 

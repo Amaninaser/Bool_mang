@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Trainee extends Model
 {
     use HasFactory;
+
     protected $perPage = 6;
 
     protected $fillable = [
@@ -35,14 +37,18 @@ class Trainee extends Model
     public static function validateRoles()
     {
         return [
-            'firstname' => 'required|min:2|max:32|regex:/^[A-z\-\.' . "\'" . ' ]+$/',
-            'lastname' => 'required|min:2|max:32|regex:/^[A-z\-\.' . "\'" . ' ]+$/',
+            'firstname' => 'required|min:2|max:32',
+            'lastname' => 'required|min:2|max:32',
             'phone' => 'required|min:10|max:24|regex:/^[0-9\-\+\.\s\(\)x]+$/',
     
             'Subtype' => [
-                'required',
-                'in:تدرييب,درس خصوصي,تعليم'
+                'nullable',
+                'in:تدريب,درس خصوصي,تعليم'
             ],
+           'number_of_lessons' => [
+            'nullable'],
+            'lesson_price' => [
+                'nullable'],
             'town' => [
                 'required',
             ],
@@ -53,5 +59,11 @@ class Trainee extends Model
             'trainer_id' => 'nullable',
            
         ];
+    }
+    public static function getTrainee(){
+  
+        $records = DB::table('trainees')->select('id','firstname','lastname','town',
+        'no_id','phone','parent_phone','trainer_id','Subtype','number_of_lessons','lesson_price')->get()->toArray();
+                return $records;
     }
 }

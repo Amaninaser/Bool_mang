@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 Route::namespace('Admin')
     ->prefix('admin')
     ->as('admin.')
@@ -26,7 +22,12 @@ Route::namespace('Admin')
         Route::resource('trainers', 'TrainerController');
         Route::resource('datedays', 'DatedayController');
         Route::resource('finances', 'FinanceController');
+        Route::resource('appointments', 'AppointmentController');
+        Route::resource('attendance', 'AttendanceRecordsController');
 
     });
-
+Route::get('/import-trainee',[TraineeController::class,'importForm']);
     
+Route::post('/import', "Admin\TraineeController@import")->name('trainee.import');
+
+Route::get('/export', "Admin\TraineeController@exportIntoExcel")->name('trainee.export');

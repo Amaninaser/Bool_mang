@@ -35,8 +35,8 @@ class Trainer extends Model
     public static function validateRoles()
     {
         return [
-            'firstname' => 'required|min:2|max:32|regex:/^[A-z\-\.' . "\'" . ' ]+$/',
-            'lastname' => 'required|min:2|max:32|regex:/^[A-z\-\.' . "\'" . ' ]+$/',
+            'firstname' => 'required|min:2|max:32',
+            'lastname' => 'required|min:2|max:32',
             'phone' => 'required|min:10|max:24|regex:/^[0-9\-\+\.\s\(\)x]+$/',
           
         ];

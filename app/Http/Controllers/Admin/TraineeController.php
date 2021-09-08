@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TraineeExport;
 use App\Http\Controllers\Controller;
+use App\Imports\TraineeImport;
 use App\Models\Trainee;
 use App\Models\Trainer;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TraineeController extends Controller
 {
@@ -16,7 +19,6 @@ class TraineeController extends Controller
      */
     public function index(Request $request)
     {
-      
 
         $trainees= Trainee::when($request->firstname, function ($query, $value) {
             $query->where(function ($query) use ($value) {
@@ -72,7 +74,7 @@ class TraineeController extends Controller
         return redirect()->route('admin.trainees.index')
         ->with(
             'success',
-            "Trainee was created with name: " . $request->firstname . " " . $request->lastname,
+            "تم إضافة التمدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
         );
     }
 
@@ -127,7 +129,7 @@ class TraineeController extends Controller
         return redirect()->route('admin.trainees.index')
             ->with(
                 'success',
-                "Trainee was updat with name: " . $request->firstname . " " . $request->lastname,
+                "تم تعديل المدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
             );
     }
 
@@ -140,11 +142,28 @@ class TraineeController extends Controller
     public function destroy($id)
     {
         $trainee = Trainee::findOrFail($id);
-   
         $trainee->delete();
- 
          return redirect()->route('admin.trainees.index')
              ->with('success', "Trainee ($trainee->fullname) Deleted Sccessufly!");
-     
     }
+
+    public function importForm()
+    {
+        return view('admin.trainees.index');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new TraineeImport, $request->file);
+        return  redirect()->route('admin.trainees.index')
+        ->with('success',"تم إضافة المدربين بالملف بنجاح ");
+
+    }
+
+    public function exportIntoExcel(Request $request)
+    {
+       return Excel::download(new TraineeExport,'traineelist.xlsx');
+    }
+
+    
 }

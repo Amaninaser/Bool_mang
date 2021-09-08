@@ -5,7 +5,7 @@
             @csrf
             @method('put')
             @include('admin.datedays._form',[
-            'button_lable' => 'Edit'
+            'button_lable' => 'تعديل'
             ])
     </form>
     </x-dashboard-layout>

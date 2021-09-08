@@ -5,7 +5,6 @@
     <a href="{{ route('admin.trainers.create') }}" class="btn btn-info">إضافة مدرب</a>
   </div>
 
-
   <form action="{{ route('admin.trainers.index') }}" method="get" class="d-flex probootstrap-section">
     <div class="row">
       <div class="col-md-4">
@@ -23,14 +22,14 @@
     </div>
 
   </form>
+
   <table class="table">
     <thead>
       <tr>
         <th>رقم#</th>
         <th>الإسم كامل</th>
         <th>الهاتف</th>
-        <th>إضافة موعد</th>
-
+        <th>إضافة يوم متاح</th>
         <th>تعديل</th>
         <th>حذف</th>
 
@@ -49,14 +48,19 @@
        <td>
           <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.trainers.edit', $trainer->id ) }}">تعديل </a>
         </td> 
-
         <td>
-          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.trainers.destroy', $trainer->id ) }}">حذف</a>
-        </td>
+                   <form action="{{route('admin.trainers.destroy', $trainer->id ) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-sm btn-primary">حذف</button>
+                    </form>
+          </td>
+     
       </tr>
       @endforeach
     </tbody>
   </table>
+  
   {{ $trainers->links() }}
 
 </x-dashboard-layout>
