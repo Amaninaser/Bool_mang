@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\LocalizationController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('lang/{locale}', [LocalizationController::class, 'index'])->name('locale.change');
+
 Route::namespace('Admin')
     ->prefix('admin')
     ->as('admin.')
@@ -25,8 +29,11 @@ Route::namespace('Admin')
         Route::resource('appointments', 'AppointmentController');
         Route::resource('attendance', 'AttendanceRecordsController');
 
-    });
+   });
 Route::get('/import-trainee',[TraineeController::class,'importForm']);
+ Route::get('admin/report',  "Admin\CounterController@statusCancel");
+
+
     
 Route::post('/import', "Admin\TraineeController@import")->name('trainee.import');
 

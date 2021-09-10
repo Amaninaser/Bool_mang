@@ -1,14 +1,14 @@
 <?php
 return [
     'trainees' => [
-        'title' => 'المتدربين',
+        'title' => 'חניכים',
         'fields' => [
-            'firstname' => 'الإسم الأول',
-            'lastname' => 'الإسم الأخير',
-            'fullname' => 'إسم المتدرب كاملا',
-            'id' => 'رقم #',
-            'town' => 'البلدة',
-            'no_id' => 'رقم الهوية',
+            'firstname' => 'שם פרטי',
+            'lastname' => 'שם משפחה',
+            'fullname' => 'שמו המלא של המתאמן',
+            'id' => 'מספר #',
+            'town' => 'העיר',
+            'no_id' => 'מספר תעודת זהות',
             'phone' => 'رقم هاتف المتدرب',
             'parent_phone' => 'رقم هاتف الأهل',
             'Subtype' => 'نوع الإشتراك',
@@ -57,9 +57,6 @@ return [
          
         ],
     ],
-    'appointments' => [  
-        'title' => 'حجز موعد',
-        ],
     'attendance' => [
         'title' => 'السجل الحضوري',
         'fields' => [
@@ -75,25 +72,7 @@ return [
             'presence' => 'حضور',
             'absence' => 'غياب',
             'details' => 'ملاحظات',
-        ], 
-    ],
-    'report' => [
-            'title' => 'التقارير',
-            'fields' => [
-                'report_status_cancel' => 'إجمالي اللقاءات الملغية لكل طالب',
-                'report_status' => 'إجمالي اللقاءات المنفذة والغير منفذه لكل طالب',
-
-                'status_Complete' => 'إجمالي اللقاءات المنفذة',
-                'status_Reserve' => 'إجمالي اللقاءات الغير المنفذة',
-                'status_Canceled' => 'إجمالي اللقاءات الملغية',
-                'presence' => 'إجمالي الحضور',
-                'report_presence' => 'إجمالي الحضور لكل طالب',
-                'report_Finance_owed' => 'إجمالي المبلغ المستحق لكل طالب',
-                'report_owed_money' => 'إجمالي المبلغ المستحق',
-                'report_Finance' => 'كشف مالي الدفع والمستحقات لكل طالب',
-                'report_paid_money' => 'إجمالي المبلغ المدفوع',
-
-            ],
+        ],
     ],
     'qa_save' => 'إضف',
     'qa_create' => 'إضافة', 

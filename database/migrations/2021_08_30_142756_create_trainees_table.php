@@ -21,7 +21,7 @@ class CreateTraineesTable extends Migration
             $table->integer('no_id')->unique();
             $table->string('phone');
             $table->string('parent_phone');
-            $table->enum('Subtype', ['تدريب', 'درس خصوصي', 'تعليم']);
+            $table->enum('Subtype', ['training', 'private_lesson', 'education']);
             $table->string('number_of_lessons')->nullable();   
              $table->string('lesson_price')->nullable();
             $table->timestamps();

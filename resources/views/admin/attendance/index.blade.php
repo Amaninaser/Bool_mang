@@ -1,24 +1,24 @@
 <x-dashboard-layout>
   <x-alert />
   <div style="padding:15px;">
-    <a href="{{ route('admin.appointments.create') }}" class="btn btn-info">حجز موعد</a>
+    <a href="{{ route('admin.appointments.create') }}" class="btn btn-info">@lang('words.qa_book_appointment') </a>
   </div>
 
   <form action="{{ route('admin.attendance.index') }}" method="get" class="d-flex probootstrap-section">
     <div class="row">
-      <div class="col-md-4">
-        <input type="text" class="form-control" name="firstname" placeholder="بحث حسب إسم المتدرب">
+    <div class="col-md-4">
+        <input type="text" class="form-control" name="firstname" placeholder="@lang('words.qa_search_by_name')">
       </div>
       <div class="col-md-4">
-        <input type="text" class="form-control" name="lastname" placeholder="بحث حسب إسم المدرب">
+        <input type="text" class="form-control" name="lastname" placeholder="@lang('words.qa_select_trainer_name')">
       </div>
       <div class="col-md-4 ">
-        <input type="text" class="form-control" name="" placeholder="بحث حسب الحالة">
+        <input type="text" class="form-control" name="" placeholder="@lang('words.qa_search_by_status')">
       </div>
 
     </div>
     <div class="col-md-4" style="padding:25px;">
-      <button type="submit" class="btn" style="background:#903479; color: #fff;">أبحث</button>
+      <button type="submit" class="btn" style="background:#903479; color: #fff;">@lang('words.qa_search')</button>
 
     </div>
 
@@ -26,19 +26,19 @@
   <table class="table">
     <thead>
       <tr>
-        <th>إسم المتدرب كاملا</th>
-        <th>إسم المدرب كاملا</th>
-        <th>نوع الإشتراك</th>
-        <th>عدد الدروس</th>
-        <th>سعر الدرس</th>
+      <th>@lang('words.trainees.fields.fullname')</th>
+        <th>@lang('words.trainers.fields.fullname')</th>
+        <th>@lang('words.trainees.fields.Subtype')</th>
+        <th>@lang('words.trainees.fields.number_of_lessons')</th>
+        <th>@lang('words.trainees.fields.lesson_price')</th>
         <!-- <th>تاريخ اللقاء</th>
         <th>يوم اللقاء</th> -->
-        <th>من الساعة</th>
-        <th>إلى الساعة</th>
-        <th>الحضور</th>
-        <th>الحالة</th>
-        <th>السجل الحضوري</th>
-        <th>حذف</th>
+        <th>@lang('words.attendance.fields.Time_from')</th>
+        <th>@lang('words.attendance.fields.Time_To')</th>
+        <th>@lang('words.attendance.fields.audience')</th>
+        <th>@lang('words.attendance.fields.status')</th>
+        <th>@lang('words.attendance.title')</th>
+        <th>@lang('words.qa_delete')</th>
       </tr>
     </thead>
     <tbody>
@@ -61,20 +61,20 @@
         @if(!empty($appointment->audience))
         <td>{{$appointment->audience}}</td>
         @else
-        <td>لم يتم أخذ الحضور بعد</td>
+        <td>__</td>
         @endif
 
         <td>{{ $appointment->status }}</td>
 
 
         <td>
-          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.attendance.edit', $appointment->id ) }}">السجل الحضوري </a>
+          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.attendance.edit', $appointment->id ) }}">@lang('words.attendance.title')</a>
         </td>
         <td>
           <form action="{{route('admin.attendance.destroy', $appointment->id ) }}" method="post">
             @csrf
             @method('delete')
-            <button type="submit" class="btn btn-sm btn-primary">حذف</button>
+            <button type="submit" class="btn btn-sm btn-primary">@lang('words.qa_delete')</button>
           </form>
         </td>
 

@@ -1,7 +1,7 @@
 <div class="form-group mb-3">
-    <label for="">إسم المدرب:</label>
+    <label for="">@lang('words.trainers.fields.fullname'):</label>
     <select name="trainer_id" class="form-control @error('trainer_id') is-invalid @enderror">
-        <option value="">إختر إسم المدرب</option>
+        <option value="">@lang('words.qa_select_trainer_name')</option>
         @foreach ($trainers as $trainer)
         <option value="{{ $trainer->id }}" @if($trainer->id == old('trainer_id', $dateday->trainer_id) ) selected @endif >{{ $trainer->firstname }} {{ $trainer->lastname }}</option>
         @endforeach
@@ -15,27 +15,24 @@
     <table class="table">
         <thead>
             <tr>
-                <th>الأيام المتاحة</th>
-                <th>من الساعة</th>
-                <th>إلى الساعة</th>
+                <th>@lang('words.datedays.fields.daysname')</th>
+                <th>@lang('words.datedays.fields.start_time')</th>
+                <th>@lang('words.datedays.fields.end_time')</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>
                     <div class="col-lg-10" class="">
-                        <!-- @foreach ($dateday->daysname as $daysname)
+                      
+                        <label><input type="checkbox" name="day[]" value="Saturday"> @lang('words.datedays.fields.Saturday')</label>
+                        <label><input type="checkbox" name="day[]" value="Sunday"> @lang('words.datedays.fields.Sunday')</label>
+                        <label><input type="checkbox" name="day[]" value="Monday"> @lang('words.datedays.fields.Monday')</label>
+                        <label><input type="checkbox" name="day[]" value="Tuesday"> @lang('words.datedays.fields.Tuesday')</label>
+                        <label><input type="checkbox" name="day[]" value="Wednesday"> @lang('words.datedays.fields.Wednesday')</label>
+                        <label><input type="checkbox" name="day[]" value="Thursday"> @lang('words.datedays.fields.Thursday')</label>
+                        <label><input type="checkbox" name="day[]" value="Friday"> @lang('words.datedays.fields.Friday')</label>
 
-                             <label><input type="checkbox" name="day[]" value="day[]" checked> {{ $daysname->day_name }}</label> 
-
-                        @endforeach -->
-                        <label><input type="checkbox" name="day[]" value="السبت"> السبت</label>
-                        <label><input type="checkbox" name="day[]" value="الأحد"> الأحد</label>
-                        <label><input type="checkbox" name="day[]" value="الإثنين"> الإثنين</label>
-                        <label><input type="checkbox" name="day[]" value="الثلاثاء"> الثلاثاء</label>
-                        <label><input type="checkbox" name="day[]" value="الأربعاء"> الأربعاء</label>
-                        <label><input type="checkbox" name="day[]" value="الخميس"> الخميس</label>
-                        <label><input type="checkbox" name="day[]" value="الجمعة"> الجمعة</label>
                         @error('day')
                         <p class="invaild-feedback text-red">{{ $message }}</p>
                         @enderror
@@ -63,7 +60,7 @@
     </table>
 
     <div class="form-group mb-3">
-        <label for="">من تاريخ :</label>
+        <label for="">@lang('words.datedays.fields.date_from') :</label>
         <input type="date" name="date_from" value="{{ old('date_from', $dateday->date_from) }}" class="form-control @error('date_from') is-invalid @enderror">
         @error('date_from')
         <p class="invalid-feedback"> {{ $message }} </p>
@@ -71,7 +68,7 @@
     </div>
 
     <div class="form-group mb-3">
-        <label for=""> إلى تاريخ :</label>
+        <label for="">@lang('words.datedays.fields.date_to') :</label>
         <input type="date" name="date_to" value="{{ old('date_to', $dateday->date_to) }}" class="form-control @error('date_to') is-invalid @enderror">
         @error('date_to')
         <p class="invalid-feedback"> {{ $message }} </p>

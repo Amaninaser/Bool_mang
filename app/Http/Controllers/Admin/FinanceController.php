@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Finance;
 use App\Models\Trainee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FinanceController extends Controller
 {
@@ -14,12 +15,16 @@ class FinanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        // $finance= Finance::with('trainee', function($query) use($request){
+        //     $query->where('trainee_id', $request->trainee_id);
+        // })->get();
         return view('admin.finances.index', [
             'finances' => Finance::all(),
             'trainees' => Trainee::all(),
-
+            // 'finance' =>$finance,
         ]);
     }
 
@@ -54,8 +59,7 @@ class FinanceController extends Controller
         return redirect()->route('admin.finances.index')
         ->with(
             'success',
-            "تم إضافة المالية للمتدرب بنجاح",
-        );
+            "Finance has been added to the trainee successfully");
     }
 
     /**
@@ -109,8 +113,7 @@ class FinanceController extends Controller
         return redirect()->route('admin.finances.index')
             ->with(
                 'success',
-                "تم تعديل المالية للمدرب بنجاح ",
-            );
+                "The Trainer's finances have been modified successfully");
     }
 
     /**
@@ -126,7 +129,7 @@ class FinanceController extends Controller
         $finance->delete();
  
          return redirect()->route('admin.finances.index')
-             ->with('success', "تم حذف المالية للمدرب بنجاح");
+             ->with('success', "Trainer's finances have been removed successfully");
      
     }
 }

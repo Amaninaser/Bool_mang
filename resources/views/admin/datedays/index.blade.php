@@ -1,7 +1,8 @@
 <x-dashboard-layout title="DateDays">
   <x-alert />
-  <style>
-.button {
+<style>
+
+  .button {
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -12,18 +13,18 @@
   font-size: 12px;
   margin: 4px 2px;
   cursor: pointer;
-}
+  }
 
-.button {border-radius: 50%;}
+  .button {border-radius: 50%;}
 </style>
 
 <div class="row">
 
 <div class="col-md-4" style="padding:10px;">
-  <a href="{{ route('admin.trainers.create') }}" class="btn btn-info">إضافة مدرب</a>
+  <a href="{{ route('admin.trainers.create') }}" class="btn btn-info">@lang('words.qa_create_trainer')</a>
 </div>
 <div class="col-md-4" style="padding:20px;">
-  <a href="{{ route('admin.datedays.create') }}" class="btn btn-info"> إضافة يوم متاح </a>
+  <a href="{{ route('admin.datedays.create') }}" class="btn btn-info"> @lang('words.qa_create_dateday')  </a>
 </div>
 
 </div>
@@ -31,13 +32,13 @@
 <form action="{{ route('admin.datedays.index') }}" method="get" class="d-flex probootstrap-section">
     <div class="row">
       <div class="col-md-4">
-        <input type="date" class="form-control" name="date_from" placeholder="بدءا من تاريخ">
+        <input type="date" class="form-control" name="date_from">
       </div>
       <div class="col-md-4">
-        <input type="time" class="form-control" name="start_time" placeholder="من الساعة">
+        <input type="time" class="form-control" name="start_time">
       </div>
       <div class="col-md-4 ">
-        <input type="time" class="form-control" name="end_time" placeholder="إلى الساعة">
+        <input type="time" class="form-control" name="end_time">
       </div>
 
     </div>
@@ -52,14 +53,11 @@
   <table class="table">
     <thead>
       <tr>
-        <th>الإسم الكامل</th>
-        <!-- <th>من تاريخ</th>
-        <th> إلى تاريخ</th> -->
-        <th>تعديل</th>
+        <th>@lang('words.trainers.fields.fullname')</th>
 
-        <th>من الساعة</th>
-        <th>إلى الساعة</th>
-        <th>الأيام المتاحة</th>
+        <th>@lang('words.datedays.fields.start_time')</th>
+        <th>@lang('words.datedays.fields.end_time')</th>
+        <th>@lang('words.datedays.fields.daysname')</th>
         <th></th>
       </tr>
     </thead>
@@ -75,11 +73,7 @@
         @else
         <td></td>
         @endif
-        <!-- <td>{{ $dateday->date_from }} </td>
-        <td>{{ $dateday->date_to }}</td> --> 
-          <td>
-          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.datedays.edit', $dateday->id ) }}">تعديل </a>
-        </td>
+    
         <td>{{ $dateday->start_time }} </td>
         <td>{{ $dateday->end_time }}</td>
         <?php

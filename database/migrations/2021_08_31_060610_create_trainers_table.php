@@ -18,10 +18,6 @@ class CreateTrainersTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->string('phone');
-        
-            // $table->date('date');
-            // $table->enum('day', ['الخميس','الأربعاء','الثلاثاء','الإثنين','الأحد','السبت','الجمعة']);
-
             $table->timestamps();
         });
     }

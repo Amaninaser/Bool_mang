@@ -16,8 +16,7 @@ class CreateDaysNameTable extends Migration
         Schema::create('days_name', function (Blueprint $table) {
             $table->id();
             $table->string('day_name');
-            //$table->integer('days_id');        
-                $table->foreignId('days_id')->nullable()->constrained('datedays','id');
+            $table->foreignId('days_id')->nullable()->constrained('datedays','id');
 
             $table->timestamps();
         });

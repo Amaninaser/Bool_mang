@@ -2,19 +2,19 @@
   <x-alert />
 
   <div style="padding:15px;">
-    <a href="{{ route('admin.finances.create') }}" class="btn btn-info">إضافة المالية</a>
+    <a href="{{ route('admin.finances.create') }}" class="btn btn-info">@lang('words.qa_create_finance')</a>
   </div>
 
-  <form action="{{ route('admin.attendance.index') }}" method="get" class="d-flex probootstrap-section">
+  <form action="{{ route('admin.finances.index') }}" method="get" class="d-flex probootstrap-section">
     <div class="row">
       <div class="col-md-4">
-        <input type="text" class="form-control" name="firstname" placeholder="بحث حسب إسم المتدرب">
+        <input type="text" class="form-control" name="trainee_id" placeholder="@lang('words.qa_search_by_name')">
       </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" name="lastname" placeholder="بحث حسب إسم المدرب">
-      </div>
+      <!-- <div class="col-md-4">
+        <input type="text" class="form-control" name="lastname" placeholder="@lang('words.qa_select_trainer_name')">
+      </div> -->
  <div class="col-md-2" style="padding-bottom:15px;">
-      <button type="submit" class="btn" style="background:#903479; color: #fff;">أبحث</button>
+      <button type="submit" class="btn" style="background:#903479; color: #fff;">@lang('words.qa_search')</button>
 
     </div>
     </div>
@@ -25,23 +25,23 @@
   <table class="table">
     <thead>
       <tr>
-        <th>رقم#</th>
-        <th>الإسم كامل</th>
-        <th>المبلغ المدفوع</th>
-        <th>المبلغ المستحق</th>
+      <th>@lang('words.finances.fields.id')</th>
+        <th>@lang('words.trainees.fields.fullname')</th>
+        <th>@lang('words.finances.fields.paid_money')</th>
+        <th>@lang('words.finances.fields.owed_money')</th>
 
-        <th>البلدة</th>
-        <th>رقم الهوية</th>
-        <th>الهاتف</th>
-        <th>هاتف الأهل</th>
-        <th>المدرب</th>
-        <th>نوع الإشتراك</th>
-        <th>عدد الدروس</th>
-        <th>سعر الدرس</th>
-        <th>طباعة</th>
+        <th>@lang('words.trainees.fields.town')</th>
+        <th>@lang('words.trainees.fields.no_id')</th>
+        <th>@lang('words.trainees.fields.phone')</th>
+        <th>@lang('words.trainees.fields.parent_phone')</th>
+        <th>@lang('words.trainers.fields.fullname')</th>
+        <th>@lang('words.trainees.fields.Subtype')</th>
+        <th>@lang('words.trainees.fields.number_of_lessons')</th>
+        <th>@lang('words.trainees.fields.lesson_price')</th>
+        <th>@lang('words.trainees.fields.fullname')</th>
 
-        <th>تعديل</th>
-        <th>حذف</th>
+        <th>@lang('words.qa_edit')</th>
+        <th>@lang('words.qa_delete')</th>
 
       </tr>
     </thead>
@@ -70,16 +70,16 @@
 
     
          <td>
-          <a type="submit" class="btn btn-sm btn-primary" href="#">طباعة </a>
+          <a type="submit" class="btn btn-sm btn-primary" href="#">@lang('words.qa_print') </a>
         </td>
         <td>
-          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.finances.edit', $finance->id ) }}">تعديل </a>
+          <a type="submit" class="btn btn-sm btn-primary" href="{{route('admin.finances.edit', $finance->id ) }}">@lang('words.qa_edit') </a>
         </td>
         <td>
                    <form action="{{route('admin.finances.destroy', $finance->id ) }}" method="post">
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-sm btn-primary">حذف</button>
+                        <button type="submit" class="btn btn-sm btn-primary">@lang('words.qa_delete')</button>
                     </form>
           </td>
      

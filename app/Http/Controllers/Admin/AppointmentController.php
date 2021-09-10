@@ -57,7 +57,7 @@ class AppointmentController extends Controller
 
         $trainers_ids = Dateday::whereDate('date_from', '<=', $date)->whereDate('date_to', '>=', $date)->pluck('trainer_id')->toArray();
         if (count($trainers_ids) == 0) {
-            return redirect()->back()->withErrors(['لا يوجد مدرب متاح بهذا اليوم!']);
+            return redirect()->back()->withErrors(['There is no Trainer available today!']);
         }
         $trainers = Trainer::whereIn('id', $trainers_ids)->get();
 
@@ -92,29 +92,28 @@ class AppointmentController extends Controller
             ->whereDate('date_to', '>=', $date)->get();
 
         if (count($valid_time) == 0) {
-            return redirect()->back()->withErrors(['المدرب غير متاح!']);
+            return redirect()->back()->withErrors(['Trainer unavailable!']);
         }
         $data = $request->all();
 
-        if ($request->ajax()) {
-            if ($request->type == 'add') {
-                $event = Appointment::create([
-                    'Time_from'   =>  $request->start,
-                    'Time_To'     =>  $request->end,  
-                    'trainer_id'  =>  $request->title,
-                ]);
+        // if ($request->ajax()) {
+        //     if ($request->type == 'add') {
+        //         $event = Appointment::create([
+        //             'Time_from'   =>  $request->start,
+        //             'Time_To'     =>  $request->end,  
+        //             'trainer_id'  =>  $request->title,
+        //         ]);
 
-                return response()->json($event);
-            }
-        }
+        //         return response()->json($event);
+        //     }
+        // }
 
-        //   $appointment = Appointment::create($data);
+          $appointment = Appointment::create($data);
 
         return redirect()->route('admin.appointments.index')
             ->with(
                 'success',
-                "Appointment was created Sccessufly",
-            );
+                "The appointment for the trainee has been created successfully");
     }
 
     /**

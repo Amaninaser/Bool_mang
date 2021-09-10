@@ -86,8 +86,7 @@ class AttendanceRecordsController extends Controller
         return redirect()->route('admin.attendance.index')
             ->with(
                 'success',
-                "تم التعديل بنجاح"
-            );
+                "Trainee's booking has been modified successfully");
     }
 
     /**
@@ -103,7 +102,8 @@ class AttendanceRecordsController extends Controller
         $appointments->delete();
  
          return redirect()->route('admin.attendance.index')
-             ->with('success', "تم حذف الحجز للمتدرب بنجاح");
+             ->with('success', 
+             "Trainee booking has been deleted successfully");
      
     }
 }

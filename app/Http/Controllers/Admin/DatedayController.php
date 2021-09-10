@@ -86,9 +86,7 @@ class DatedayController extends Controller
 
         return redirect()->route('admin.datedays.index')
         ->with(
-            'success',
-            "تم إضافة موعد للمدرب بنجاح!"
-        );
+            'success', "Available days for trainer have been added successfully!");
     }
 
     /**

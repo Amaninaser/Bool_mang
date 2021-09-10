@@ -74,7 +74,7 @@ class TraineeController extends Controller
         return redirect()->route('admin.trainees.index')
         ->with(
             'success',
-            "تم إضافة التمدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
+            "Trainee with name : " . $request->firstname . " " . $request->lastname . " has been created successfully",
         );
     }
 
@@ -129,7 +129,7 @@ class TraineeController extends Controller
         return redirect()->route('admin.trainees.index')
             ->with(
                 'success',
-                "تم تعديل المدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
+                "Trainee with name : " . $request->firstname . " " . $request->lastname . " has been updated successfully",
             );
     }
 
@@ -144,7 +144,9 @@ class TraineeController extends Controller
         $trainee = Trainee::findOrFail($id);
         $trainee->delete();
          return redirect()->route('admin.trainees.index')
-             ->with('success', "Trainee ($trainee->fullname) Deleted Sccessufly!");
+             ->with('success',
+             "Trainer with name : " . $trainee->firstname . " " . $trainee->lastname . " has been deleted successfully",
+            );
     }
 
     public function importForm()
@@ -156,7 +158,7 @@ class TraineeController extends Controller
     {
         Excel::import(new TraineeImport, $request->file);
         return  redirect()->route('admin.trainees.index')
-        ->with('success',"تم إضافة المدربين بالملف بنجاح ");
+        ->with('success',"Trainees added successfully");
 
     }
 

@@ -18,12 +18,12 @@ class CreateAppointmentsTable extends Migration
             $table->foreignId('trainer_id')->nullable()->constrained('trainers','id');
             $table->foreignId('trainee_id')->nullable()->constrained('trainees','id');
             $table->foreignId('date_id')->nullable()->constrained('datedays','id');
-            $table->enum('status', ['حجز', 'إكتمال', 'إلغاء']);
+            $table->enum('status', ['Reserve', 'Complete', 'Cancel']);
             $table->enum('color', ['yellow', 'green', 'red', 'blue', 'purple']);
             $table->dateTime('Time_from');
             $table->dateTime('Time_To');
-            $table->enum('audience', ['حضور','غياب'])->nullable();
-            $table->string('details')->nullable();
+            $table->enum('audience', ['presence', 'absence'])->nullable();
+            $table->text('details')->nullable();
             $table->timestamps();
         });
     }

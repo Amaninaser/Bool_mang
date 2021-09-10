@@ -71,7 +71,7 @@ class TrainerController extends Controller
         return redirect()->route('admin.trainers.index')
         ->with(
             'success',
-            "تم إضافة المدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
+            "Trainer with name : " . $request->firstname . " " . $request->lastname . " has been created successfully",
         );
     }
 
@@ -124,7 +124,7 @@ class TrainerController extends Controller
         return redirect()->route('admin.trainers.index')
             ->with(
                 'success',
-                "تم تعديل المدرب : " . $request->firstname . " " . $request->lastname . "بنجاح ",
+                "Trainer with name : " . $request->firstname . " " . $request->lastname . " has been updated successfully",
             );
     }
 
@@ -136,6 +136,11 @@ class TrainerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $trainer = Trainer::findOrFail($id);
+        $trainer->delete();
+         return redirect()->route('admin.trainers.index')
+             ->with('success', 
+             "Trainer with name : " . $trainer->firstname . " " . $trainer->lastname . " has been deleted successfully",
+           );
     }
 }
