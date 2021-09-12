@@ -21,7 +21,9 @@ class TraineeImport implements ToModel,WithHeadingRow
             'town'=> $row['lastname'],
             'no_id'=> $row['no_id'],
             'phone'=> $row['phone'],
-            'parent_phone'=> $row['parent_phone'],         
+            'parent_phone'=> $row['parent_phone'],  
+            'trainer_id'=> $row['trainer_id'],  
+      
         ]);
     }
 }

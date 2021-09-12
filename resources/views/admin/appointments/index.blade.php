@@ -52,23 +52,13 @@
                     right: 'month,agendaWeek,agendaDay'
                 },
                 events: SITEURL +"/admin/appointments",
-                displayEventTime: false,
+                displayEventTime: true,
                 editable: true,
-                eventRender: function(event, element, view) {
-                    if (event.allDay === 'true') {
-                        event.allDay = true;
-                    } else {
-                        event.allDay = false;
-                    }
-                },
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end, allDay) {
                     var date = convert(start);
                     window.location = '/admin/appointments/create?date=' + date;
-
-                    var start = 111;
-                    var end = 4444;
            
                     $.ajax({
                         url: "/admin/appointments/create",
@@ -100,18 +90,16 @@
                     });
 
                 },
-                eventDrop: function(event, delta) {
-                    var start = $.fullCalendar.formatDate(event.start, "Y-MM-DD");
-                    var end = $.fullCalendar.formatDate(event.end, "Y-MM-DD");
 
+                eventDrop: function(event, data) {
+                    console.log(data._data);
                     $.ajax({
-                        url: SITEURL + '/fullcalenderAjax',
+                        url: '/admin/appointments/edit',
                         data: {
-                            title: event.title,
-                            start: start,
-                            end: end,
-                            id: event.id,
-                            type: 'update'
+                            id:event.id,
+                            day:data._data.days,
+                            months:data._data.months,
+                            years:data._data.years,
                         },
                         type: "POST",
                         success: function(response) {
@@ -119,24 +107,22 @@
                         }
                     });
                 },
-                eventClick: function(event) {
+
+                eventClick: function (event) {
                     var deleteMsg = confirm("Do you really want to delete?");
-                    if (deleteMsg) {
+                    if(deleteMsg) {
                         $.ajax({
-                            type: "POST",
-                            url: SITEURL + '/fullcalenderAjax',
-                            data: {
-                                id: event.id,
-                                type: 'delete'
-                            },
-                            success: function(response) {
-                                calendar.fullCalendar('removeEvents', event.id);
-                                displayMessage("Event Deleted Successfully");
+                            method: "GET",
+                            url: '/appointments/delete?id='+event.id,
+                            success: function (response) {
+                                if(parseInt(response) > 0) {
+                                    $('#calendar').fullCalendar('removeEvents', event.id);
+                                    displayMessage("Deleted Successfully");
+                                }
                             }
                         });
                     }
-                }
-
+                },
             });
 
         });

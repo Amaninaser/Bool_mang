@@ -8,6 +8,7 @@ use App\Models\SchedualTimes;
 use App\Models\DaysName;
 
 use App\Models\Trainer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DatedayController extends Controller
@@ -18,18 +19,19 @@ class DatedayController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $datedays= Dateday::when($request->date_from, function ($query, $value) {
-                $query->whereDate('date_from', '<=', "$value")
+    { 
+       
+
+        $datedays= Dateday::when($request->id, function ($query, $value) {
+            $query->whereDate('date_from', '<=', "$value")
                 ->whereTime('start_time', '<=', "$value")
-                    ->whereTime('end_time', '>=', "$value");
+                ->whereTime('end_time', '>=', "$value");
         })
-          
-            ->latest('date_from')
-            ->paginate(3);
+        ->latest('date_from')
+        ->paginate(3);
 
         return view('admin.datedays.index', [
-            'datedays' => $datedays,
+             'datedays' => $datedays,
             'daysnames' => DaysName::all(),
             'trainers' => Trainer::all(),
         ]);
@@ -50,7 +52,7 @@ class DatedayController extends Controller
     }
 
 
-  
+
     /**
      * Store a newly created resource in storage.
      *
@@ -59,34 +61,36 @@ class DatedayController extends Controller
      */
     public function store(Request $request)
     {
-        
-       // $request->validate(Dateday::validateRoles());
-    
-       $data = $request->all();
-       $day_name =$data['day'];
-    
-    $dates =new Dateday;
-    $dates->trainer_id = $request->trainer_id;
-    $dates->start_time = $request->start_time;
-    $dates->end_time = $request->end_time;
-    $dates->date_from = $request->date_from;
-    $dates->date_to = $request->date_to;
-    $dates->save();
 
-       foreach($day_name as $day){
+        // $request->validate(Dateday::validateRoles());
 
-        DaysName::create([  
-            'day_name'=>$day,
-            'days_id'=> $dates->id   
-           
-        ]);
-    }
+        $data = $request->all();
+        $day_name = $data['day'];
 
-      // dd('gujg');
+        $dates = new Dateday;
+        $dates->trainer_id = $request->trainer_id;
+        $dates->start_time = $request->start_time;
+        $dates->end_time = $request->end_time;
+        $dates->date_from = $request->date_from;
+        $dates->date_to = $request->date_to;
+        $dates->save();
+
+        foreach ($day_name as $day) {
+
+            DaysName::create([
+                'day_name' => $day,
+                'days_id' => $dates->id
+
+            ]);
+        }
+
+        // dd('gujg');
 
         return redirect()->route('admin.datedays.index')
-        ->with(
-            'success', "Available days for trainer have been added successfully!");
+            ->with(
+                'success',
+                "Available days for trainer have been added successfully!"
+            );
     }
 
     /**
@@ -108,7 +112,7 @@ class DatedayController extends Controller
      */
     public function edit($id)
     {
-        $dateday= Dateday::findOrFail($id);
+        $dateday = Dateday::findOrFail($id);
         $trainers = Trainer::all();
         $daysnames = DaysName::all();
 
@@ -117,9 +121,10 @@ class DatedayController extends Controller
             abort(404);
         }
 
-        return view('admin.datedays.edit', 
-        compact('dateday','trainers','daysnames'));
-   
+        return view(
+            'admin.datedays.edit',
+            compact('dateday', 'trainers', 'daysnames')
+        );
     }
 
     /**
@@ -156,10 +161,10 @@ class DatedayController extends Controller
     public function destroy($id)
     {
         $dateday = Dateday::findOrFail($id);
-   
+
         $dateday->delete();
- 
-         return redirect()->route('admin.datedays.index')
-             ->with('success', "Date_day Deleted Sccessufly!");
+
+        return redirect()->route('admin.datedays.index')
+            ->with('success', "Date_day Deleted Sccessufly!");
     }
 }

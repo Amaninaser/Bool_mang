@@ -20,6 +20,7 @@ class Appointment extends Model
         'status',
         'color',
         'audience',
+        'text_color',
         'deatils',
     ];
     public function trainer()

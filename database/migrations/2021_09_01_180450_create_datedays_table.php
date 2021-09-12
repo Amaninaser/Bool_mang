@@ -17,7 +17,7 @@ class CreateDatedaysTable extends Migration
             $table->id();
             $table->date('date_from');
             $table->date('date_to');
-            $table->foreignId('trainer_id')->constrained('trainers', 'id')->cascadeOnDelete();
+            $table->foreignId('trainer_id')->constrained('trainers', 'id')->onDelete('cascade');
             $table->enum('day', ['Thursday', 'Wednesday', 'Tuesday', 'Monday', 'Sunday', 'Saturday', 'Friday']);
             $table->time('start_time');
             $table->time('end_time');

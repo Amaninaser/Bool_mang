@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Appointment;
 use App\Models\Finance;
+use App\Models\Trainee;
+use Illuminate\Support\Facades\DB;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 class CounterController extends Controller
 {
@@ -15,27 +17,15 @@ class CounterController extends Controller
      */
     public function statusCancel()
     {
-        $count = Appointment::where('appointments.status','=','Cancel')->count();
-        $count_Reserve = Appointment::where('appointments.status','=','Reserve')->count();
-        $count_Complete = Appointment::where('appointments.status','=','Complete')->count();
+        $sum = Finance::join('trainees', 'trainees.id', '=', 'finances.trainee_id')->groupBy('trainees.id','firstname','lastname')
+        ->get(['trainees.firstname', 'trainees.lastname',DB::raw('SUM(paid_money) AS sum_paid'), DB::raw('SUM(owed_money) AS sum_owed')]);
 
-        $count_presence = Appointment::where('appointments.audience','=','presence')->count();
-        $sum = Finance::sum('owed_money');
-
-        $data = Appointment::join('trainees', 'trainees.id', '=', 'appointments.trainee_id')
-        ->where('appointments.status', '=', 'Cancel')
-        ->orwhere('appointments.audience', '=', 'presence')
-        ->get(['trainees.firstname', 'trainees.lastname']);
-
-        $data_staus = Appointment::join('trainees', 'trainees.id', '=', 'appointments.trainee_id')
-        ->where('appointments.status', '=', 'Reserve')
-        ->orwhere('appointments.status', '=', 'Complete')
-        ->get(['trainees.firstname', 'trainees.lastname']);
+        $data = Trainee::all();
 
         $data_finance = Finance::join('trainees', 'trainees.id', '=', 'finances.trainee_id')
         ->get(['trainees.firstname', 'trainees.lastname','finances.owed_money','finances.paid_money']);
 
-     return view('admin/report', compact('data','count','data_staus','count_presence','sum','data_finance','count_Reserve','count_Complete'));
+     return view('admin/report', compact('data','data_finance','sum'));
 
 
     }  

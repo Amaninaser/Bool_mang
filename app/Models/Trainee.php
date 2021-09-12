@@ -43,7 +43,7 @@ class Trainee extends Model
     
             'Subtype' => [
                 'nullable',
-                'in:private_lesson, education,training'
+                'in:private_lesson,education,training'
             ],
            'number_of_lessons' => [
             'nullable'],

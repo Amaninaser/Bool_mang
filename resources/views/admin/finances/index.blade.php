@@ -8,12 +8,10 @@
   <form action="{{ route('admin.finances.index') }}" method="get" class="d-flex probootstrap-section">
     <div class="row">
       <div class="col-md-4">
-        <input type="text" class="form-control" name="trainee_id" placeholder="@lang('words.qa_search_by_name')">
+        <input type="text" class="form-control" name="firstname" placeholder="@lang('words.qa_search_by_name')">
       </div>
-      <!-- <div class="col-md-4">
-        <input type="text" class="form-control" name="lastname" placeholder="@lang('words.qa_select_trainer_name')">
-      </div> -->
- <div class="col-md-2" style="padding-bottom:15px;">
+   
+ <div class="col-md-4" style="padding-bottom:15px;">
       <button type="submit" class="btn" style="background:#903479; color: #fff;">@lang('words.qa_search')</button>
 
     </div>

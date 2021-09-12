@@ -18,8 +18,7 @@ class CreateFinancesTable extends Migration
             $table->foreignId('trainee_id')->nullable()->constrained('trainees','id');
             $table->integer('paid_money');
             $table->integer('owed_money');
-
-            $table->timestamps();
+           $table->timestamps();
         });
     }
 

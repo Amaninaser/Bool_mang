@@ -88,7 +88,7 @@ class AttendanceRecordsController extends Controller
                 'success',
                 "Trainee's booking has been modified successfully");
     }
-
+    
     /**
      * Remove the specified resource from storage.
      *
