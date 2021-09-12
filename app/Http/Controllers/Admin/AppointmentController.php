@@ -28,7 +28,7 @@ class AppointmentController extends Controller
             $data = Appointment::join('trainers', 'trainers.id', '=', 'appointments.trainer_id')
                 ->join('trainees', 'trainees.id', '=', 'appointments.trainee_id')->select([
                     'appointments.id',
-                    DB::raw("concat_ws('-',trainers.firstname, trainees.firstname) as title "),
+                    DB::raw("CONCAT(trainers.firstname,' ',trainers.lastname, '/' ,trainees.firstname,' ',trainees.lastname) as title "),
                     DB::raw('Time_from as start'),
                     DB::raw('Time_To as end'),
                     'appointments.color', 'Subtype', 'status','appointments.text_color'

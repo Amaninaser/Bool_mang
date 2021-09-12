@@ -40,21 +40,11 @@ class Trainee extends Model
             'firstname' => 'required|min:2|max:32',
             'lastname' => 'required|min:2|max:32',
             'phone' => 'required|min:10|max:24|regex:/^[0-9\-\+\.\s\(\)x]+$/',
-    
-            'Subtype' => [
-                'nullable',
-                'in:private_lesson,education,training'
-            ],
-           'number_of_lessons' => [
-            'nullable'],
-            'lesson_price' => [
-                'nullable'],
-            'town' => [
-                'required',
-            ],
-            'no_id' => [
-                'required',
-            ],
+            'Subtype' => ['nullable','in:private_lesson,education,training' ],
+            'number_of_lessons' => ['nullable'],
+            'lesson_price' => ['nullable'],
+            'town' => ['required'],
+            'no_id' => 'required|min:9|max:24||regex:/^[0-9]/',
             'parent_phone' =>  'required|min:10|max:24|regex:/^[0-9\-\+\.\s\(\)x]+$/',
             'trainer_id' => 'nullable',
            

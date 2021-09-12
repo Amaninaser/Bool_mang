@@ -20,12 +20,17 @@ class DatedayController extends Controller
      */
     public function index(Request $request)
     { 
-       
 
-        $datedays= Dateday::when($request->id, function ($query, $value) {
-            $query->whereDate('date_from', '<=', "$value")
-                ->whereTime('start_time', '<=', "$value")
-                ->whereTime('end_time', '>=', "$value");
+        $datedays= Dateday::when($request->date_from, function ($query, $value) {
+            $query->whereDate('date_from', '<=', "$value");
+               
+        })->when($request->start_time, function ($query, $value) {
+            $query->whereTime('start_time', '<=', "$value");
+               
+        })
+        ->when($request->end_time, function ($query, $value) {
+            $query->whereTime('end_time', '>=', "$value");
+               
         })
         ->latest('date_from')
         ->paginate(3);

@@ -17,6 +17,15 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+<style>
+.fc-event{
+    line-height: 3.3 !important;
+}
+.fc-basic-view .fc-body .fc-row{
+    min-width: 80em;
+}
+
+</style>
 </head>
 
 <body>
