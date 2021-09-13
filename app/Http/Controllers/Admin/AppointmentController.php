@@ -31,12 +31,12 @@ class AppointmentController extends Controller
                     DB::raw("CONCAT(trainers.firstname,' ',trainers.lastname, '/' ,trainees.firstname,' ',trainees.lastname) as title "),
                     DB::raw('Time_from as start'),
                     DB::raw('Time_To as end'),
-                    'appointments.color', 'Subtype', 'status','appointments.text_color'
+                    'appointments.color', 'Subtype', 'status', 'appointments.text_color'
 
                 ])->get()->toArray();
             foreach ($data as $key => $value) {
                 if ($data[$key]['Subtype'] == 'training') {
-                    $data[$key]['color'] = "Gray";
+                    $data[$key]['color'] = "#00b3b3";
                 }
                 if ($data[$key]['Subtype'] == 'education') {
                     $data[$key]['color'] = "LightGray";
@@ -44,16 +44,20 @@ class AppointmentController extends Controller
                 if ($data[$key]['Subtype'] == 'private_lesson') {
                     $data[$key]['color'] = "yellow";
                 }
-                if ($data[$key]['status'] == 'Reserve') {
-                    $data[$key]['text_color'] = "SlateBlue";
-                }
-                if ($data[$key]['status'] == 'Complete') {
-                    $data[$key]['text_color'] = "blue";
-                }
-                if ($data[$key]['status'] == 'Cancel') {
-                    $data[$key]['text_color'] = "purple";
-                }
+              
             }
+        foreach ($data as $key => $value) {
+
+            if ($data[$key]['status'] == 'Reserve') {
+                $data[$key]['textColor'] = "#ffaa00";
+            }
+            if ($data[$key]['status'] == 'Complete') {
+                $data[$key]['textColor'] = "blue";
+            }
+            if ($data[$key]['status'] == 'Cancel') {
+                $data[$key]['textColor'] = "purple";
+            }
+        }
             return response()->json($data);
         }
         return view('admin.appointments.index', [
@@ -100,7 +104,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //$request->validate(Finance::validateRoles());
+        $request->validate(Appointment::validateRoles());
 
         $time_from = request('Time_from');
         $time_to = request('Time_To');
@@ -113,7 +117,7 @@ class AppointmentController extends Controller
             ->where('trainer_id', $trainer_id)->whereDate('date_from', '<=', $date)
             ->whereDate('date_to', '>=', $date)->get();
 
-            $avaliable = Appointment::whereTime('Time_from', '=', $time_from)
+        $avaliable = Appointment::whereTime('Time_from', '=', $time_from)
             ->whereTime('Time_To', '=', $time_to)->get();
 
         if (count($avaliable) !== 0) {
@@ -153,22 +157,22 @@ class AppointmentController extends Controller
      */
     public function edit(Request $request)
     {
-      
-        $appointments = Appointment::where('id',$request->id)->first()->toArray();
-    $date_to = strtotime($appointments['Time_To']);
-    $old_to = date('H:i:s',$date_to);
-    $old_timeStamp = strtotime($appointments['Time_from']);
-    $old_time = date('H:i:s',$old_timeStamp);
-    $old_date = date('Y-m-d',$old_timeStamp);
-    $new_date = date_create($old_date);
-    $new_string = $request->day.' day '.$request->months.' month '.$request->years.' year';
-    date_add($new_date,date_interval_create_from_date_string($new_string));
-    $new_date = date_format($new_date,'Y-m-d');
-    $data = array(
-        'Time_from' => $new_date.' '.$old_time,
-        'Time_To' => $new_date.' '.$old_to
-    );
-    Appointment::where('id',$request->id)->update($data);
+
+        $appointments = Appointment::where('id', $request->id)->first()->toArray();
+        $date_to = strtotime($appointments['Time_To']);
+        $old_to = date('H:i:s', $date_to);
+        $old_timeStamp = strtotime($appointments['Time_from']);
+        $old_time = date('H:i:s', $old_timeStamp);
+        $old_date = date('Y-m-d', $old_timeStamp);
+        $new_date = date_create($old_date);
+        $new_string = $request->day . ' day ' . $request->months . ' month ' . $request->years . ' year';
+        date_add($new_date, date_interval_create_from_date_string($new_string));
+        $new_date = date_format($new_date, 'Y-m-d');
+        $data = array(
+            'Time_from' => $new_date . ' ' . $old_time,
+            'Time_To' => $new_date . ' ' . $old_to
+        );
+        Appointment::where('id', $request->id)->update($data);
     }
 
 

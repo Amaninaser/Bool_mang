@@ -35,9 +35,11 @@ class Dateday extends Model
     public static function validateRoles()
     {
         return [
-            'date' => 'required',
-            'day' => 'required',
+            'date_from' => 'required',
+            'date_to' => 'required',
             'trainer_id' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
         ];
     }
 

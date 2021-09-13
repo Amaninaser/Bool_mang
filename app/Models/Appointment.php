@@ -31,5 +31,17 @@ class Appointment extends Model
     {
         return $this->belongsTo(Trainee::class, 'trainee_id', 'id');
     }
+    public static function validateRoles()
+    {
+        return [
+            'Time_from' => 'required',
+            'Time_To' => 'required',
+            'trainer_id' => 'required',
+            'trainee_id' => 'required',     
+            'status' => 'required',
+
+        ];
+        
+    }
 }
 

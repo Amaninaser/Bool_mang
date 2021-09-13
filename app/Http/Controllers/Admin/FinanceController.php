@@ -18,21 +18,20 @@ class FinanceController extends Controller
     public function index(Request $request)
     {
 
-        // $trainee =Finance::when($request->trainee_id,function($query,$value){
-        //     $query->where('trainees.trainee_id', '=', "%$value%");
-        // })
-        // ->with('trainee')
-        // ->get();
+         $trainee= Finance::when($request->id, function ($query, $value) {
+            $query->where(function ($query) use ($value) {
+                $query->where('trainees.firstname', 'LIKE', "%$value%");
+            
+            });
+        })
+        ->with('trainee')
+        ->get();
 
-        $trainee= Finance::when($request->trainee_id, function ($query,$value) {
-            $query->where('trainees.firstname', 'like',  "%$value%");
-        })->with('trainee')->get();
+        $finances = Finance::all();
+        $trainees = Trainee::all();
 
-        return view('admin.finances.index', [
-            'finances' => Finance::all(),
-            'trainees' => Trainee::all(),
-            'trainee' => $trainee,
-        ]);
+        return view('admin.finances.index', compact('finances','trainees','trainee'));
+           
     }
 
     /**
@@ -112,7 +111,7 @@ class FinanceController extends Controller
             abort(404);
         }
 
-       // $request->validate(Trainee::validateRoles());
+        $request->validate(Finance::validateRoles());
         $data = $request->all();
         $finance->update($data);
 

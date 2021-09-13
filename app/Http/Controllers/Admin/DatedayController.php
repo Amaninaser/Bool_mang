@@ -67,7 +67,7 @@ class DatedayController extends Controller
     public function store(Request $request)
     {
 
-        // $request->validate(Dateday::validateRoles());
+         $request->validate(Dateday::validateRoles());
 
         $data = $request->all();
         $day_name = $data['day'];

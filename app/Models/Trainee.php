@@ -44,7 +44,14 @@ class Trainee extends Model
             'number_of_lessons' => ['nullable'],
             'lesson_price' => ['nullable'],
             'town' => ['required'],
-            'no_id' => 'required|min:9|max:24||regex:/^[0-9]/',
+            'no_id' => [
+                'required',
+                'min:9',
+                'max:24',
+                'regex:/^[0-9]/',
+                
+            ],
+
             'parent_phone' =>  'required|min:10|max:24|regex:/^[0-9\-\+\.\s\(\)x]+$/',
             'trainer_id' => 'nullable',
            
